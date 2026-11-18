@@ -1,0 +1,72 @@
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.header-inner {
+  --header-fade: 240ms;
+  transition: opacity var(--header-fade) ease, translate var(--header-fade) var(--ease-in-out),
+    background-color 240ms ease, border-color 240ms ease, color 200ms ease;
+}
+.header[data-scrolling-down]:not(:has(:focus-visible)) .header-inner {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .header:not(:has(:focus-visible)) { animation: header-enter 520ms var(--ease-out); }
+  .header-inner { --header-fade: 360ms; }
+  .header[data-scrolling-down]:not(:has(:focus-visible)) .header-inner {
+    translate: 0 -24px;
+  }
+
+  .hero-scene::before {
+    inset: 0;
+    border-radius: calc(34px * var(--scene-reveal, 0));
+    scale: calc(1 - .065 * var(--scene-reveal, 0)) calc(1 - var(--scene-compression) * var(--scene-reveal, 0));
+  }
+
+  .intro { animation: intro-enter 520ms var(--ease-out) both; }
+  .hero-project { animation: preview-enter 640ms var(--ease-out) 60ms both; }
+
+  .feature-stage[data-visible] img,
+  .app-screens[data-visible] img {
+    animation: preview-enter 540ms var(--ease-out) both;
+  }
+
+  .app-screens[data-visible] a:nth-child(2) img { animation-delay: 70ms; }
+
+  .language::before { transition: transform 220ms var(--ease-in-out); }
+  .button { transition: scale 140ms var(--ease-out); }
+  .button:active { scale: .97; }
+  .plus { transition: transform 180ms var(--ease-out); }
+}
+
+@media (min-width: 821px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
+  .hero-banner[data-live] .hero-scene { position: sticky; inset-block-start: 0; }
+  .hero-banner[data-live]::after { content: ""; display: block; block-size: clamp(160px, 26svh, 264px); }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .hero-window, .app-screen img, .caption-arrow {
+    transition: translate 220ms var(--ease-out);
+  }
+
+  .hero-project:hover :is(.hero-window, .caption-arrow),
+  .app-screen:hover img { translate: 0 -4px; }
+}
+
+@keyframes header-enter {
+  from { opacity: .25; translate: 0 -16px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes intro-enter {
+  from { opacity: .65; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes preview-enter {
+  from { opacity: .5; transform: translateY(18px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
