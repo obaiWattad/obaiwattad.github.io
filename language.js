@@ -33,14 +33,29 @@
       ? "https://shiny-store.pages.dev/?lang=ar" : "https://shiny-store.pages.dev/?lang=en";
   }
 
+  function selectLanguage(language) {
+    render(language);
+    try { localStorage.setItem(storageKey, language); } catch { /* The switch still works for this visit. */ }
+  }
+
   for (const button of buttons) {
     button.addEventListener("click", () => {
       const language = button.dataset.language;
-      render(language);
-      try { localStorage.setItem(storageKey, language); } catch { /* The switch still works for this visit. */ }
+      selectLanguage(language);
+      const url = new URL(location.href);
+      if (url.searchParams.has("lang")) {
+        url.searchParams.set("lang", language);
+        history.replaceState(history.state, "", url);
+      }
     });
   }
-  try {
-    if (localStorage.getItem(storageKey) === "ar") render("ar");
-  } catch { /* English is already present in the HTML. */ }
+
+  const requestedLanguage = new URLSearchParams(location.search).get("lang");
+  if (requestedLanguage === "ar" || requestedLanguage === "en") {
+    selectLanguage(requestedLanguage);
+  } else {
+    try {
+      if (localStorage.getItem(storageKey) === "ar") render("ar");
+    } catch { /* English is already present in the HTML. */ }
+  }
 })();
