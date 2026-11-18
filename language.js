@@ -2,7 +2,8 @@
   const storageKey = "obaitech-language";
   const fields = [
     ["data-copy", "textContent"],
-    ["data-label", "aria-label"]
+    ["data-label", "aria-label"],
+    ["data-alt", "alt"]
   ].flatMap(([attribute, property]) =>
     Array.from(document.querySelectorAll(`[${attribute}]`), element => ({
       element, property, key: element.getAttribute(attribute),

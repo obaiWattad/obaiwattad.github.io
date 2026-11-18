@@ -137,8 +137,9 @@ h3 { font-size: clamp(1.55rem, 3vw, 2.15rem); }
 .more[open] .plus { transform: rotate(45deg); }
 .more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px; padding-block: 16px 22px; }
 .more-grid h3 { font-size: 1.25rem; letter-spacing: -.025em; }
-.about { border-top: 1px solid var(--line); display: grid; grid-template-columns: .7fr 1fr; gap: 25px; padding-block: 40px 62px; }
-.about p { margin: 0; max-width: 54ch; font-size: 1.12rem; }
+.about { border-top: 1px solid var(--line); display: grid; grid-template-columns: clamp(148px, 22vw, 224px) minmax(0, 1fr); gap: clamp(22px, 6vw, 72px); align-items: center; padding-block: clamp(34px, 4.5vw, 58px); }
+.about-portrait { width: 100%; height: auto; border: 1px solid #b4c3b5; border-radius: 22px; box-shadow: 0 12px 28px -18px #26584770; }
+.about p { margin: 14px 0 0; max-width: 54ch; font-size: 1.12rem; }
 .contact-inner { border-radius: 24px; background: var(--panel); color: #fff; padding: clamp(22px, 4.5vw, 54px); display: flex; gap: 25px; align-items: center; justify-content: space-between; }
 .contact h2 { font-size: clamp(2rem, 3.75vw, 3.3rem); }
 [dir="rtl"] .contact h2 { font-size: clamp(1.7rem, 3.3vw, 2.9rem); }
@@ -167,7 +168,8 @@ h3 { font-size: clamp(1.55rem, 3vw, 2.15rem); }
   .feature { grid-template-rows: auto; }
   .feature-stage { grid-row: auto; grid-column: auto; padding: 18px; }
   .feature-stage img { width: min(100%, 150px); }
-  .about { gap: 14px; padding-bottom: 37px; }
+  .about { gap: 20px; padding-bottom: 37px; }
+  .about-portrait { width: min(64%, 190px); }
   .contact-inner { align-items: flex-start; flex-direction: column; gap: 16px; }
   .contact-actions { justify-content: flex-start; }
 }
